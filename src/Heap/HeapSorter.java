@@ -12,6 +12,14 @@ public class HeapSorter {
     }
 
     public void sort() {
+       /* for (int i = 0; i < items.length; i++) {
+            add(items[i]);
+        }
+
+        for (int i = items.length - 1; i >= 0; i--) {
+            items[i] = remove();
+        }*/
+
         for (int i = 0; i < items.length; i++) {
             add(items[i]);
         }
@@ -22,22 +30,37 @@ public class HeapSorter {
     }
 
     public void add(int x) {
-        if(heapSize == items.length){
+        /*if(heapSize == items.length){
             throw new IndexOutOfBoundsException();
         }
         else {
             items[heapSize] = x;
             bubbleUp(heapSize);
             heapSize++;
-        }
+        }*/
+
+        items[heapSize] = x;
+        bubbleUp(heapSize);
+        heapSize++;
     }
 
     public void bubbleUp(int i) {
         if (i != ROOT) {
-            if (items[i] > parent(i)) {}
-            swap(i, parent(i));
-            bubbleUp(parent(i));
+            if (items[i] > items[parent(i)]) {
+                swap(i, parent(i));
+            }
+            else {
+                bubbleUp(parent(i));
+            }
         }
+
+        /*if (i != ROOT) {
+            if (items[(i - 1) / 2] < items[i]) {
+                swap(i, (i - 1) / 2);
+            }
+
+            bubbleUp((i - 1) / 2);
+        }*/
     }
 
     public void swap(int i, int j) {
@@ -64,14 +87,28 @@ public class HeapSorter {
     }
 
     public void trickleDown(int i) {
-        // TODO
-        int temp = i;
+       /* int temp = i;
 
         while((hasLeft(temp) || hasRight(temp)) && (items[i] > right(temp) || items[i] > left(temp))) {
                 swap(i, min(right(temp), left(temp)));
         }
 
-        swap(temp, i);
+        swap(temp, i);*/
+
+        int j;
+
+        if ((2 * i) + 1 >= heapSize) {
+            j = i;
+        } else if ((2 * i) + 2 == heapSize || items[(2 * i) + 1] > items[(2 * i) + 2]) {
+            j = (2 * i) + 1;
+        } else {
+            j = (2 * i) + 2;
+        }
+
+        if (items[i] < items[j]) {
+            swap(i, j);
+            trickleDown(j);
+        }
     }
 
     private int min(int i, int j){
