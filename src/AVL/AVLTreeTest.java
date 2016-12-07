@@ -14,7 +14,7 @@ public class AVLTreeTest extends TestCase {
         tree = new AVLTree();
     }
 
-   /* @Test
+    @Test
     public void testAdd2() throws Exception {
         tree.add(45);
         tree.add(31);
@@ -38,7 +38,7 @@ public class AVLTreeTest extends TestCase {
             //expected
         }
         System.out.println(tree.toString());
-    }*/
+    }
 
     @Test
     public void testAddMany() throws Exception {
