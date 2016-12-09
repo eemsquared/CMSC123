@@ -66,7 +66,7 @@ public class GraphTest {
         g.addEdge("2", "9");
 
         list = g.outEdges("2");
-        assertEquals(list.toString(), "[[6, 7, 9]]");
+        assertEquals(list.toString(), "[6, 7, 9]");
     }
 
     @Test
@@ -87,10 +87,43 @@ public class GraphTest {
     @Test
     public void bfs() throws Exception {
 
+        g.addNode("1");
+        g.addNode("2");
+        g.addNode("3");
+        g.addNode("5");
+        g.addEdge("1", "4");
+        g.addEdge("2", "6");
+        g.addEdge("2", "7");
+        g.addEdge("2", "9");
+        g.addEdge("3", "4");
+        g.addEdge("5", "4");
+        g.addEdge("2", "1");
+
+        List<String> ans = g.bfs("2");
+        assertEquals(ans.toString(), "[2, 6, 7, 9, 1]");
+
     }
 
     @Test
     public void dfs() throws Exception {
+        g.addNode("1");
+        g.addNode("2");
+        g.addNode("3");
+        g.addNode("5");
+        g.addNode("6");
+        g.addEdge("1", "4");
+        g.addEdge("2", "6");
+        g.addEdge("2", "7");
+        g.addEdge("2", "9");
+        g.addEdge("3", "4");
+        g.addEdge("5", "4");
+        g.addEdge("2", "1");
+        g.addEdge("6", "5");
+        g.addEdge("5", "9");
 
+        List<String> ans = g.dfs("2");
+        assertEquals(ans.toString(), "[2, 1, 4, 9, 7, 6, 5]");
+        System.out.println(g.dfs("2"));
+        System.out.println(ans.toString());
     }
 }

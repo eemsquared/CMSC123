@@ -1,9 +1,9 @@
 package Graphs;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import sun.awt.image.ImageWatched;
+
+import java.lang.reflect.Array;
+import java.util.*;
 
 /**
  * Created by mmcalvarez on 12/8/2016.
@@ -64,7 +64,10 @@ public class Graph {
         int source = Math.abs(Integer.valueOf(src));
 
         List<String> edges = new ArrayList<>();
-        edges.add(String.valueOf(adj[source]));
+        for(int i = 0; i < adj[source].size(); i++) {
+            edges.add(String.valueOf(adj[source].get(i)));
+        }
+
         return edges;
     }
 
@@ -76,16 +79,74 @@ public class Graph {
        for(int i = 0; i < n; i++){
            if(adj[i].contains(source)){
                edges.add(String.valueOf(i));
+
            }
        }
        return edges;
     }
 
     public List<String> bfs(String src) {
-        return null;
+        int source = Math.abs(Integer.valueOf(src));
+
+        LinkedList<String> queue = new LinkedList<>();
+        LinkedList<String> queue2 = new LinkedList<>();
+        boolean[] visited = new boolean[n];
+
+        visited[source] = true;
+        queue.add(String.valueOf(source));
+
+        while(!queue.isEmpty()){
+            src = queue.remove();
+            queue2.add(src);
+
+            for(int i = 0; i < adj[source].size(); i++){
+                if(!visited[adj[source].get(i)]){
+                    visited[adj[source].get(i)] = true;
+                    queue.add(String.valueOf(adj[source].get(i)));
+                }
+            }
+        }
+
+        return queue2;
     }
 
     public List<String> dfs(String src) {
-        return null;
+        int source = Math.abs(Integer.valueOf(src));
+        boolean flag = false;
+
+        Stack<String> stack = new Stack<>();
+        Stack<String> stack2 = new Stack<>();
+
+        boolean[] visited = new boolean[n];
+
+        visited[source] = true;
+        stack.push(String.valueOf(source));
+
+        while(!stack.isEmpty()){
+            src = stack.pop();
+            stack2.push(src);
+
+           /* if(!visited[Integer.valueOf(src)]){
+                visited[Integer.valueOf(src)] = true;
+            }*/
+
+            List<String> neighbors = outEdges(src);
+
+            for(int i = 0; i < neighbors.size(); i++){
+               if(!stack2.contains(neighbors.get(i))){
+                   stack.push(neighbors.get(i));
+
+               }
+              /* if(!flag){
+                   stack.push(neighbors.get(i));
+                   System.out.println(neighbors.get(i));
+                   System.out.println("gggg");
+                   System.out.println(stack);
+               }*/
+            }
+        }
+
+
+        return stack2;
     }
 }
